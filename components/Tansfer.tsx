@@ -7,8 +7,9 @@ export const Transfer = () => {
 
   const { fetch, error, isFetching } = useWeb3Transfer({
     amount: Moralis.Units.Token(0.01, 18),
-    receiver: '',
+    receiver: process.env.NEXT_PUBLIC_RECEIVER_ADDRESS,
     type: 'erc20',
+    contractAddress: '0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0', // polygon
   })
 
   return (
