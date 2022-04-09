@@ -8,11 +8,7 @@ export const SignIn = () => {
 
   const [email, setEmail] = useState('')
 
-  const handleCustomLogin = async () => {
-    // @ts-ignore
-    if (window.ethereum && window.ethereum.isMetaMask) {
-      return await authenticate()
-    }
+  const handleMagicLinkLogin = async () => {
     return await authenticate({
       provider: 'magicLink',
       email: email,
@@ -20,28 +16,36 @@ export const SignIn = () => {
       network: 'mumbai',
     })
   }
-
+  const handleMetamaskLogin = async () => {
+    // @ts-ignore
+    if (!window.ethereum || !window.ethereum.isMetaMask) return
+    return await authenticate()
+  }
   return (
     <div className={styles.card}>
       {isAuthenticating && <p className={styles.green}>Authenticating</p>}
       {authError && (
         <p className={styles.error}>{JSON.stringify(authError.message)}</p>
       )}
-      <div className={styles.buttonCard}>
-        <input
-          type={'email'}
-          className={styles.input}
-          placeholder="Email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value)
-          }}
-        />
-
-        <button className={styles.loginButton} onClick={handleCustomLogin}>
-          Login with Magic Link
-        </button>
-      </div>
+      {!isAuthenticating && (
+        <div className={styles.buttonCard}>
+          <input
+            type={'email'}
+            className={styles.input}
+            placeholder="Email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
+          />
+          <button className={styles.loginButton} onClick={handleMetamaskLogin}>
+            Login with Metamask
+          </button>
+          <button className={styles.loginButton} onClick={handleMagicLinkLogin}>
+            Login with Magic Link
+          </button>
+        </div>
+      )}
     </div>
   )
 }
