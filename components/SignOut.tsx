@@ -9,9 +9,11 @@ export const SignOut = () => {
   const { logout, Moralis, user } = useMoralis()
   const [balance, setBalance] = useState(0)
   const fetchBalance = async () => {
-    const options = { chain: Moralis.Chains.ETH_KOVAN }
+    const options = {
+      chain: 'mumbai',
+    }
     const balance = await Moralis.Web3API.account.getNativeBalance(options)
-    console.log(balance.balance / 10 ** 18)
+    console.log(balance)
     setBalance(balance.balance / 10 ** 18)
   }
   useEffect(() => {

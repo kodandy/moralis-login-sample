@@ -3,8 +3,13 @@ import styles from '../styles/Home.module.css'
 import { useState } from 'react'
 
 export const SignIn = () => {
-  const { authenticate, isAuthenticated, authError, isAuthenticating } =
-    useMoralis()
+  const {
+    authenticate,
+    isAuthenticated,
+    authError,
+    isAuthenticating,
+    Moralis,
+  } = useMoralis()
 
   const [email, setEmail] = useState('')
 
@@ -41,7 +46,7 @@ export const SignIn = () => {
           <button className={styles.loginButton} onClick={handleMetamaskLogin}>
             Login with Metamask
           </button>
-          <button className={styles.loginButton} onClick={handleMagicLinkLogin}>
+          <button className={styles.loginMagic} onClick={handleMagicLinkLogin}>
             Login with Magic Link
           </button>
         </div>
