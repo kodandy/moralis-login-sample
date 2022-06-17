@@ -14,10 +14,9 @@ export const SignIn = () => {
   const [email, setEmail] = useState('')
 
   const handleMagicLinkLogin = async () => {
-    return await authenticate({
-      provider: 'magicLink',
+    return await magic.auth.loginWithMagicLink({
       email: email,
-      apiKey: process.env.NEXT_PUBLIC_MAGIC_API_KEY,
+      redirectURI: 'https://moralis-login-sample.vercel.app/#',
       network: 'mumbai',
     })
   }
